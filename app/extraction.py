@@ -24,7 +24,22 @@ def _extract_txt(data: bytes) -> str:
     return data.decode("utf-8", errors="replace")
 
 
-def _extract_pdf(data: bytes) -> str:
+def _extract_pdf_pymupdf(data: bytes) -> str | None:
+    """Preferred extractor: PyMuPDF yields much cleaner text on justified PDFs
+    (e.g. the EU Official Journal) where pypdf inserts spurious intra-word
+    spaces. Returns None if PyMuPDF is unavailable so the caller can fall back."""
+    try:
+        import fitz  # PyMuPDF
+    except ImportError:
+        return None
+    try:
+        with fitz.open(stream=data, filetype="pdf") as doc:
+            return "\n".join(page.get_text() for page in doc)
+    except Exception:
+        return None
+
+
+def _extract_pdf_pypdf(data: bytes) -> str:
     try:
         from pypdf import PdfReader
     except ImportError as exc:  # pragma: no cover - dependency guaranteed
@@ -42,7 +57,13 @@ def _extract_pdf(data: bytes) -> str:
         except Exception:
             # Skip pages that fail to extract rather than aborting the whole doc.
             continue
-    text = "\n".join(pages)
+    return "\n".join(pages)
+
+
+def _extract_pdf(data: bytes) -> str:
+    text = _extract_pdf_pymupdf(data)
+    if not text or not text.strip():
+        text = _extract_pdf_pypdf(data)
     if not text.strip():
         raise ExtractionError(
             "No selectable text found in the PDF. It may be a scanned image; "

@@ -22,3 +22,4 @@ uploads/
 # Locally-generated framework templates (may derive from copyrighted standards)
 app/data/frameworks_local/
 
+.scratch/

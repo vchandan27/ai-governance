@@ -158,7 +158,44 @@ def parse_sections(
 
     # Filter out noise (too-short bodies, table-of-contents lines, etc.).
     cleaned = [s for s in sections if len(s.body) >= min_body]
+
+    if profile == "eu_ai_act":
+        cleaned = _postprocess_eu(cleaned)
+
     return cleaned[:max_sections]
+
+
+_LOWER_CONNECTORS = ("of ", "in ", "to ", "and ", "or ", "as ", "for ", "the ",
+                     "that ", "which ", "with ", "by ", "on ", "shall ", "applies")
+
+
+def _valid_eu_title(title: str) -> bool:
+    """Distinguish a real article heading (e.g. 'Risk management system') from an
+    inline cross-reference fragment captured from the recitals."""
+    t = title.strip().strip("`").strip()
+    if not (3 <= len(t) <= 100):
+        return False
+    if not t[0].isupper():
+        return False
+    if t.endswith((",", ";", ":")):
+        return False
+    low = t.lower()
+    if any(low.startswith(c) for c in _LOWER_CONNECTORS):
+        return False
+    return True
+
+
+def _postprocess_eu(sections: list[Section]) -> list[Section]:
+    """Drop inline references and keep one (richest) section per article number,
+    preserving numeric order."""
+    valid = [s for s in sections if _valid_eu_title(s.title)]
+    best: dict[str, Section] = {}
+    for s in valid:
+        s.title = s.title.strip().strip("`").strip()
+        prev = best.get(s.reference)
+        if prev is None or len(s.body) > len(prev.body):
+            best[s.reference] = s
+    return sorted(best.values(), key=lambda s: int(re.sub(r"\D", "", s.reference) or 0))
 
 
 def derive_keywords(sections: list[Section], top_k: int = 8) -> None:

@@ -49,6 +49,25 @@ def test_parse_nist_sections():
     assert "MEASURE 2.1" in refs
 
 
+def test_eu_postprocess_drops_inline_references():
+    # An inline cross-reference (as found in recitals) followed by the real
+    # article heading further down. The fragment 'of the Charter...' must be
+    # dropped and only the real 'Risk management system' kept.
+    text = (
+        "Article 9\n"
+        "of the Charter of Fundamental Rights and the protection of natural "
+        "persons, which is referenced widely throughout the recitals here.\n\n"
+        "Article 9\n"
+        "Risk management system\n"
+        "1. A risk management system shall be established, implemented and "
+        "maintained for high-risk AI systems throughout their lifecycle.\n"
+    )
+    sections = parse_sections(text, "eu_ai_act")
+    art9 = [s for s in sections if s.reference == "Article 9"]
+    assert len(art9) == 1
+    assert art9[0].title == "Risk management system"
+
+
 def test_generate_template_is_loadable():
     text = FIXTURE.read_text()
     framework, profile, n = generate_template_from_text(
