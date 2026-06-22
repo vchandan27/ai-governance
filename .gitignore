@@ -18,3 +18,7 @@ venv/
 # Uploads / scratch
 uploads/
 *.tmp
+
+# Locally-generated framework templates (may derive from copyrighted standards)
+app/data/frameworks_local/
+

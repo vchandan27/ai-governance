@@ -1,0 +1,23 @@
+CHAPTER III HIGH-RISK AI SYSTEMS
+
+Article 9
+Risk management system
+1. A risk management system shall be established, implemented, documented and
+maintained in relation to high-risk AI systems. The risk management system shall
+be understood as a continuous iterative process planned and run throughout the
+entire lifecycle of a high-risk AI system, requiring regular systematic review.
+
+Article 10
+Data and data governance
+1. High-risk AI systems which make use of techniques involving the training of
+models with data shall be developed on the basis of training, validation and
+testing data sets that meet the quality criteria. Data sets shall be subject to
+data governance and management practices appropriate for the intended purpose,
+including examination in view of possible biases.
+
+Article 14
+Human oversight
+1. High-risk AI systems shall be designed and developed in such a way, including
+with appropriate human-machine interface tools, that they can be effectively
+overseen by natural persons during the period in which they are in use, including
+the ability to intervene, override or stop the system.

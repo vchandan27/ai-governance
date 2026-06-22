@@ -91,6 +91,25 @@ for the planned embedding/LLM upgrade path and why the draft stays offline by de
 
 ---
 
+## Generate a template from a standard's PDF, then check a policy against it
+
+Have the official EU AI Act / ISO 42001 / NIST AI RMF PDFs? You can auto-generate a
+mapping **template** from them and immediately run a policy against it:
+
+```bash
+# 1. Build a framework template from the standard's PDF
+python -m scripts.build_framework_template /path/to/eu_ai_act.pdf \
+    --id eu_ai_act --name "EU AI Act" --profile eu_ai_act --prefix EUAIA
+
+# 2. Check a policy for compliance against it (terminal / Markdown / JSON)
+python -m scripts.analyze_cli /path/to/company_policy.pdf --frameworks all --format markdown
+```
+
+Generated templates land in the git-ignored `app/data/frameworks_local/` (so text
+derived from copyrighted standards isn't committed) and are picked up automatically by
+the app, API and CLI. Automated parsing is **best-effort and meant for human review**.
+Full guide: [`docs/INGESTION.md`](docs/INGESTION.md).
+
 ## Extending the knowledge base
 
 Frameworks are declarative YAML in [`app/data/frameworks/`](app/data/frameworks). To add
@@ -125,6 +144,7 @@ app/
   main.py            FastAPI app + routes
   engine.py          Pluggable mapping/scoring engine (TF-IDF + keywords)
   extraction.py      PDF/DOCX/TXT/MD text extraction + segmentation
+  ingest.py          Parse a standard's PDF -> framework template (controls)
   frameworks.py      YAML loader + in-memory models
   reporting.py       Markdown report renderer
   schemas.py         Pydantic API contracts
@@ -132,9 +152,13 @@ app/
   data/frameworks/   EU AI Act, ISO 42001, NIST AI RMF (declarative YAML)
   data/crosswalk.yaml  Cross-framework theme mapping
   static/            Single-page UI (vanilla JS, no build step)
-docs/                Architecture & roadmap
+scripts/
+  build_framework_template.py  CLI: standard PDF -> mapping template
+  analyze_cli.py     CLI: check a policy against frameworks (text/md/json)
+  run.sh             Launcher
+docs/                Architecture, roadmap & ingestion guide
 sample_policies/     Example policy to try
-tests/               pytest suite (engine, extraction, API)
+tests/               pytest suite (engine, extraction, ingest, API)
 ```
 
 ## Testing
