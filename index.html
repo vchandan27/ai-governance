@@ -1,0 +1,183 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>AI Governance Tracker</title>
+    <link rel="stylesheet" href="styles.css" />
+  </head>
+  <body>
+    <header class="hero">
+      <nav class="topbar" aria-label="Primary">
+        <a class="brand" href="#top" aria-label="AI Governance Tracker home">
+          <span class="brand-mark" aria-hidden="true">AG</span>
+          <span>AI Governance Tracker</span>
+        </a>
+        <div class="nav-links">
+          <a href="#analyze">Analyze</a>
+          <a href="#profiles">Profiles</a>
+          <a href="#improve">Improve</a>
+        </div>
+      </nav>
+
+      <section id="top" class="hero-grid">
+        <div>
+          <p class="eyebrow">Draft governance-mapping workspace</p>
+          <h1>Map an organization AI policy to leading governance profiles.</h1>
+          <p class="hero-copy">
+            Upload or paste a policy, identify alignment with frameworks such as
+            the EU AI Act, ISO/IEC 42001, NIST AI RMF, and OECD AI Principles,
+            then review evidence, gaps, and recommended next actions.
+          </p>
+          <div class="hero-actions">
+            <a class="button primary" href="#analyze">Start analysis</a>
+            <button class="button ghost" type="button" id="loadSamplePolicy">
+              Load sample policy
+            </button>
+          </div>
+        </div>
+        <aside class="hero-card" aria-label="Governance coverage summary">
+          <span class="stat-label">Profiles included</span>
+          <strong id="profileCount">4</strong>
+          <span class="stat-label">Control areas checked</span>
+          <strong id="controlCount">0</strong>
+          <p>
+            Keyword and evidence-based scoring is intended as a first-pass
+            triage, not a legal certification.
+          </p>
+        </aside>
+      </section>
+    </header>
+
+    <main>
+      <section id="analyze" class="panel">
+        <div class="section-heading">
+          <p class="eyebrow">Policy intake</p>
+          <h2>Analyze a policy document</h2>
+          <p>
+            Supports text-oriented files such as .txt, .md, .csv, and .json.
+            For PDFs or Word documents, export text first for this draft.
+          </p>
+        </div>
+
+        <div class="workspace-grid">
+          <form class="policy-form" id="policyForm">
+            <label class="file-drop" for="policyFile">
+              <span>Upload organization policy</span>
+              <strong id="fileName">Choose a file or drag it here</strong>
+              <input id="policyFile" name="policyFile" type="file" accept=".txt,.md,.csv,.json,.html,.xml" />
+            </label>
+
+            <label for="policyText">Policy text</label>
+            <textarea
+              id="policyText"
+              name="policyText"
+              rows="16"
+              placeholder="Paste AI policy, risk-management standard, model-development SOP, or procurement guidance..."
+            ></textarea>
+
+            <div class="form-actions">
+              <button class="button primary" type="submit">Map governance alignment</button>
+              <button class="button secondary" type="button" id="clearPolicy">Clear</button>
+            </div>
+          </form>
+
+          <aside class="insight-card">
+            <h3>What the tracker checks</h3>
+            <ul class="check-list">
+              <li>Governance roles, accountability, and approvals</li>
+              <li>Risk classification, impact assessment, and safeguards</li>
+              <li>Transparency, human oversight, and user notice</li>
+              <li>Data quality, privacy, security, monitoring, and incidents</li>
+              <li>Supplier controls, documentation, audit, and improvement loops</li>
+            </ul>
+          </aside>
+        </div>
+      </section>
+
+      <section class="panel results-panel" aria-live="polite">
+        <div class="section-heading">
+          <p class="eyebrow">Governance map</p>
+          <h2>Alignment results</h2>
+          <p id="resultsSummary">Run an analysis to see profile scores, evidence, and gap recommendations.</p>
+        </div>
+
+        <div class="score-overview" id="scoreOverview"></div>
+        <div class="results-grid" id="resultsGrid"></div>
+
+        <div class="actions-row">
+          <button class="button secondary" type="button" id="downloadReport" disabled>
+            Download JSON report
+          </button>
+        </div>
+      </section>
+
+      <section id="profiles" class="panel muted">
+        <div class="section-heading">
+          <p class="eyebrow">Profile library</p>
+          <h2>Draft governance profiles</h2>
+          <p>
+            Each profile contains control dimensions, indicative keywords, and
+            action-oriented gap guidance. The library can be replaced with a
+            regulatory ontology or control catalog later.
+          </p>
+        </div>
+        <div class="profile-library" id="profileLibrary"></div>
+      </section>
+
+      <section id="improve" class="panel">
+        <div class="section-heading">
+          <p class="eyebrow">Product perspective</p>
+          <h2>How to improve this draft</h2>
+          <p>
+            The tracker should mature from keyword triage to traceable, auditable
+            governance intelligence.
+          </p>
+        </div>
+
+        <div class="improvement-grid">
+          <article>
+            <h3>Policy intelligence</h3>
+            <p>
+              Add semantic clause extraction, obligation tagging, version
+              comparison, policy-owner workflows, and confidence scoring with
+              reviewer overrides.
+            </p>
+          </article>
+          <article>
+            <h3>Framework depth</h3>
+            <p>
+              Expand controls into citations, jurisdictions, applicability
+              triggers, evidence requirements, and obligation-to-control mappings.
+            </p>
+          </article>
+          <article>
+            <h3>Enterprise workflow</h3>
+            <p>
+              Track remediation plans, owners, due dates, approvals, audit logs,
+              exceptions, and integration with GRC, ticketing, DMS, and model
+              inventory systems.
+            </p>
+          </article>
+          <article>
+            <h3>Assurance and safety</h3>
+            <p>
+              Add human review gates, source citations, red-team checks,
+              privacy-preserving processing, role-based access, and exportable
+              auditor-ready evidence packs.
+            </p>
+          </article>
+        </div>
+      </section>
+    </main>
+
+    <footer>
+      <p>
+        Draft only. Consult qualified legal, compliance, and risk professionals
+        before making governance decisions.
+      </p>
+    </footer>
+
+    <script src="app.js"></script>
+  </body>
+</html>

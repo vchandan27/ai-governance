@@ -1,0 +1,16 @@
+{
+  "name": "ai-governance-tracker",
+  "version": "0.1.0",
+  "private": true,
+  "description": "Draft AI governance tracker for mapping organization policies to governance profiles.",
+  "scripts": {
+    "test": "node tests/governance.test.js"
+  },
+  "keywords": [
+    "ai-governance",
+    "eu-ai-act",
+    "iso-42001",
+    "nist-ai-rmf"
+  ],
+  "license": "UNLICENSED"
+}
