@@ -1,0 +1,271 @@
+id: eu_ai_act
+name: EU Artificial Intelligence Act
+short_name: EU AI Act
+version: "Regulation (EU) 2024/1689"
+authority: European Parliament and Council of the European Union
+reference_url: https://eur-lex.europa.eu/eli/reg/2024/1689/oj
+description: >-
+  The EU AI Act is the world's first comprehensive horizontal regulation of
+  artificial intelligence. It follows a risk-based approach, imposing the
+  strongest obligations on high-risk AI systems and prohibiting a set of
+  unacceptable-risk practices. The controls below focus on the obligations most
+  relevant to organisations that develop, provide or deploy AI systems.
+# Default classification thresholds (cosine + keyword blended score, 0..1)
+thresholds:
+  covered: 0.32
+  partial: 0.14
+controls:
+  - id: EUAIA-A5
+    title: Prohibited AI practices
+    reference: Article 5
+    category: Prohibited Practices
+    weight: 5
+    description: >-
+      Ensure the organisation does not place on the market, put into service or
+      use AI systems that deploy subliminal or manipulative techniques, exploit
+      vulnerabilities, perform social scoring, untargeted scraping of facial
+      images, emotion inference in the workplace, or non-compliant biometric
+      categorisation and real-time remote biometric identification.
+    keywords:
+      - prohibited practices
+      - unacceptable risk
+      - subliminal manipulation
+      - social scoring
+      - biometric categorisation
+      - emotion recognition
+      - banned use cases
+    expected_evidence:
+      - A list of prohibited or banned AI use cases referenced in the policy.
+      - A screening/gate that blocks development of unacceptable-risk systems.
+  - id: EUAIA-A6
+    title: Risk classification of AI systems
+    reference: Articles 6 & Annex III
+    category: Risk Classification
+    weight: 4
+    description: >-
+      Classify each AI system by risk tier (prohibited, high-risk, limited-risk,
+      minimal-risk) using the criteria in Article 6 and Annex III, and record the
+      determination.
+    keywords:
+      - risk classification
+      - high-risk
+      - risk tier
+      - annex iii
+      - risk categorisation
+      - system inventory
+      - intended purpose
+    expected_evidence:
+      - A documented methodology for assigning AI systems to risk tiers.
+      - An inventory recording the risk tier of each AI system.
+  - id: EUAIA-A9
+    title: Risk management system
+    reference: Article 9
+    category: Risk Management
+    weight: 5
+    description: >-
+      Establish, implement, document and maintain a continuous, iterative risk
+      management system across the lifecycle of high-risk AI systems, including
+      identification, estimation, evaluation and mitigation of risks to health,
+      safety and fundamental rights.
+    keywords:
+      - risk management system
+      - risk assessment
+      - risk mitigation
+      - residual risk
+      - lifecycle risk
+      - foreseeable misuse
+    expected_evidence:
+      - A documented, iterative risk management process spanning the AI lifecycle.
+      - Records of risk identification, evaluation and mitigation measures.
+  - id: EUAIA-A10
+    title: Data and data governance
+    reference: Article 10
+    category: Data Governance
+    weight: 4
+    description: >-
+      Apply data governance practices to training, validation and testing data,
+      including relevance, representativeness, bias examination and mitigation,
+      and management of gaps or deficiencies.
+    keywords:
+      - data governance
+      - training data
+      - data quality
+      - bias detection
+      - representativeness
+      - data provenance
+      - data set
+    expected_evidence:
+      - Data governance and data quality management procedures.
+      - Bias examination and mitigation steps for datasets.
+  - id: EUAIA-A11
+    title: Technical documentation
+    reference: Article 11 & Annex IV
+    category: Documentation
+    weight: 3
+    description: >-
+      Draw up and keep up to date technical documentation demonstrating that a
+      high-risk AI system complies with the requirements, before it is placed on
+      the market.
+    keywords:
+      - technical documentation
+      - system documentation
+      - design specification
+      - model card
+      - annex iv
+    expected_evidence:
+      - Technical documentation templates covering system design and performance.
+  - id: EUAIA-A12
+    title: Record-keeping and logging
+    reference: Article 12
+    category: Logging & Traceability
+    weight: 3
+    description: >-
+      Ensure high-risk AI systems technically allow the automatic recording of
+      events (logs) over their lifetime to ensure a level of traceability
+      appropriate to the intended purpose.
+    keywords:
+      - logging
+      - record-keeping
+      - event logs
+      - traceability
+      - audit trail
+    expected_evidence:
+      - Logging and event-recording requirements for AI systems.
+      - Log retention and traceability provisions.
+  - id: EUAIA-A13
+    title: Transparency and information to deployers
+    reference: Article 13
+    category: Transparency
+    weight: 3
+    description: >-
+      Design high-risk AI systems so their operation is sufficiently transparent
+      and accompanied by instructions for use enabling deployers to interpret and
+      use the output appropriately.
+    keywords:
+      - transparency
+      - instructions for use
+      - interpretability
+      - explainability
+      - information to deployers
+    expected_evidence:
+      - Instructions-for-use or documentation provided to deployers/users.
+  - id: EUAIA-A14
+    title: Human oversight
+    reference: Article 14
+    category: Human Oversight
+    weight: 4
+    description: >-
+      Design and develop high-risk AI systems so they can be effectively
+      overseen by natural persons, including the ability to intervene, override
+      or stop the system (human-in-the-loop / on-the-loop / in-command).
+    keywords:
+      - human oversight
+      - human-in-the-loop
+      - human intervention
+      - override
+      - stop button
+      - meaningful control
+    expected_evidence:
+      - Human oversight measures and the ability to intervene or override.
+  - id: EUAIA-A15
+    title: Accuracy, robustness and cybersecurity
+    reference: Article 15
+    category: Robustness & Security
+    weight: 4
+    description: >-
+      Achieve appropriate levels of accuracy, robustness and cybersecurity and
+      perform consistently throughout the lifecycle, including resilience to
+      errors, faults and adversarial attacks.
+    keywords:
+      - accuracy
+      - robustness
+      - cybersecurity
+      - adversarial
+      - resilience
+      - performance metrics
+    expected_evidence:
+      - Accuracy/performance metrics and acceptance thresholds.
+      - Cybersecurity and adversarial-robustness measures.
+  - id: EUAIA-A17
+    title: Quality management system
+    reference: Article 17
+    category: Governance
+    weight: 4
+    description: >-
+      Providers of high-risk AI systems shall put a documented quality management
+      system in place covering compliance strategy, design controls, testing,
+      data management, risk management and post-market monitoring.
+    keywords:
+      - quality management system
+      - qms
+      - compliance strategy
+      - documented procedures
+      - governance framework
+    expected_evidence:
+      - A documented quality management system or equivalent governance framework.
+  - id: EUAIA-A26
+    title: Obligations of deployers
+    reference: Article 26
+    category: Deployment
+    weight: 3
+    description: >-
+      Deployers must use high-risk AI systems in accordance with instructions,
+      assign competent human oversight, monitor operation and keep logs.
+    keywords:
+      - deployer obligations
+      - operational monitoring
+      - use according to instructions
+      - assigned oversight
+    expected_evidence:
+      - Operational responsibilities for teams deploying AI systems.
+  - id: EUAIA-A27
+    title: Fundamental rights impact assessment
+    reference: Article 27
+    category: Impact Assessment
+    weight: 4
+    description: >-
+      Certain deployers must perform a fundamental rights impact assessment
+      describing processes, affected persons, risks and mitigation/oversight
+      measures before deploying a high-risk AI system.
+    keywords:
+      - fundamental rights impact assessment
+      - fria
+      - human rights
+      - affected persons
+      - impact assessment
+    expected_evidence:
+      - A fundamental rights or AI impact assessment procedure.
+  - id: EUAIA-A50
+    title: Transparency for users (limited-risk)
+    reference: Article 50
+    category: Transparency
+    weight: 2
+    description: >-
+      Inform natural persons when they interact with an AI system, and label
+      synthetic or manipulated content (e.g. deepfakes, AI-generated text).
+    keywords:
+      - ai disclosure
+      - inform users
+      - deepfake labelling
+      - synthetic content
+      - watermarking
+      - chatbot disclosure
+    expected_evidence:
+      - Disclosure to users that they are interacting with AI.
+      - Labelling of AI-generated or manipulated content.
+  - id: EUAIA-A72
+    title: Post-market monitoring
+    reference: Article 72
+    category: Monitoring
+    weight: 3
+    description: >-
+      Establish and document a post-market monitoring system to collect and
+      review experience from the use of AI systems and report serious incidents.
+    keywords:
+      - post-market monitoring
+      - incident reporting
+      - serious incident
+      - continuous monitoring
+      - feedback collection
+    expected_evidence:
+      - A post-market monitoring and incident-reporting process.

@@ -1,0 +1,77 @@
+# Crosswalk between governance frameworks.
+# Each theme groups conceptually-equivalent controls across frameworks so that
+# evidence found for one framework can inform coverage of related controls in
+# another, and so reports can show a unified, framework-agnostic view.
+themes:
+  - id: governance_accountability
+    title: Governance, policy & accountability
+    controls:
+      eu_ai_act: [EUAIA-A17]
+      iso_42001: [ISO-5, ISO-7.5]
+      nist_ai_rmf: [NIST-GV-1]
+  - id: risk_management
+    title: AI risk management
+    controls:
+      eu_ai_act: [EUAIA-A9, EUAIA-A6]
+      iso_42001: [ISO-6.1, ISO-6.2]
+      nist_ai_rmf: [NIST-MP-3, NIST-MG-1]
+  - id: impact_assessment
+    title: Impact & fundamental-rights assessment
+    controls:
+      eu_ai_act: [EUAIA-A27]
+      iso_42001: [ISO-6.1.4]
+      nist_ai_rmf: [NIST-MP-1]
+  - id: data_governance
+    title: Data governance & quality
+    controls:
+      eu_ai_act: [EUAIA-A10]
+      iso_42001: [ISO-A7]
+      nist_ai_rmf: []
+  - id: human_oversight
+    title: Human oversight & responsible use
+    controls:
+      eu_ai_act: [EUAIA-A14, EUAIA-A26]
+      iso_42001: [ISO-A9]
+      nist_ai_rmf: []
+  - id: transparency
+    title: Transparency & user information
+    controls:
+      eu_ai_act: [EUAIA-A13, EUAIA-A50]
+      iso_42001: [ISO-A8]
+      nist_ai_rmf: []
+  - id: robustness_security
+    title: Accuracy, robustness, security & bias
+    controls:
+      eu_ai_act: [EUAIA-A15]
+      iso_42001: []
+      nist_ai_rmf: [NIST-MS-1, NIST-MS-2]
+  - id: logging_traceability
+    title: Logging, record-keeping & documentation
+    controls:
+      eu_ai_act: [EUAIA-A11, EUAIA-A12]
+      iso_42001: [ISO-7.5]
+      nist_ai_rmf: []
+  - id: monitoring_incident
+    title: Monitoring, post-market & incident response
+    controls:
+      eu_ai_act: [EUAIA-A72]
+      iso_42001: [ISO-9]
+      nist_ai_rmf: [NIST-MS-3, NIST-MG-4]
+  - id: third_party
+    title: Third-party & supply-chain risk
+    controls:
+      eu_ai_act: []
+      iso_42001: [ISO-A10]
+      nist_ai_rmf: [NIST-GV-6, NIST-MG-3]
+  - id: competence_culture
+    title: Competence, awareness & culture
+    controls:
+      eu_ai_act: []
+      iso_42001: [ISO-7.2]
+      nist_ai_rmf: [NIST-GV-2]
+  - id: stakeholder_engagement
+    title: Stakeholder engagement & feedback
+    controls:
+      eu_ai_act: []
+      iso_42001: [ISO-4]
+      nist_ai_rmf: [NIST-GV-5]

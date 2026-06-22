@@ -1,0 +1,211 @@
+id: nist_ai_rmf
+name: NIST AI Risk Management Framework 1.0
+short_name: NIST AI RMF
+version: "1.0 (AI 100-1)"
+authority: U.S. National Institute of Standards and Technology
+reference_url: https://www.nist.gov/itl/ai-risk-management-framework
+description: >-
+  The NIST AI RMF is a voluntary framework to manage risks of AI systems and
+  promote trustworthy and responsible AI. Its core is organised into four
+  functions - GOVERN, MAP, MEASURE and MANAGE - each with categories and
+  subcategories. The controls below summarise representative categories.
+thresholds:
+  covered: 0.30
+  partial: 0.13
+controls:
+  - id: NIST-GV-1
+    title: "GOVERN: Policies, processes and accountability"
+    reference: GOVERN 1
+    category: Govern
+    weight: 5
+    description: >-
+      Policies, processes, procedures and practices for mapping, measuring and
+      managing AI risks are in place, transparent and implemented effectively;
+      roles and accountability structures are defined.
+    keywords:
+      - governance
+      - policies and procedures
+      - accountability
+      - roles and responsibilities
+      - legal and regulatory requirements
+      - risk management policy
+    expected_evidence:
+      - Documented AI risk-management policies and accountability structures.
+  - id: NIST-GV-2
+    title: "GOVERN: Workforce and culture"
+    reference: GOVERN 2-4
+    category: Govern
+    weight: 3
+    description: >-
+      Accountability structures, workforce diversity, training and a culture of
+      risk awareness and critical thinking about AI risks are fostered.
+    keywords:
+      - organizational culture
+      - training and competence
+      - risk awareness
+      - diversity
+      - critical thinking
+    expected_evidence:
+      - Training, culture and workforce practices related to AI risk.
+  - id: NIST-GV-5
+    title: "GOVERN: Stakeholder engagement and feedback"
+    reference: GOVERN 5
+    category: Govern
+    weight: 3
+    description: >-
+      Processes for robust engagement with relevant AI actors and mechanisms to
+      collect, consider and incorporate feedback from external parties.
+    keywords:
+      - stakeholder engagement
+      - external feedback
+      - community input
+      - affected communities
+      - feedback mechanisms
+    expected_evidence:
+      - Mechanisms to collect and act on stakeholder/external feedback.
+  - id: NIST-GV-6
+    title: "GOVERN: Third-party and supply-chain risk"
+    reference: GOVERN 6
+    category: Govern
+    weight: 3
+    description: >-
+      Policies and procedures address AI risks associated with third-party
+      software, data and supply chain.
+    keywords:
+      - third-party risk
+      - supply chain
+      - vendor
+      - pre-trained models
+      - procurement
+    expected_evidence:
+      - Third-party/supply-chain AI risk policies.
+  - id: NIST-MP-1
+    title: "MAP: Context and categorisation"
+    reference: MAP 1-2
+    category: Map
+    weight: 4
+    description: >-
+      Establish and understand the context in which the AI system is deployed,
+      categorise the AI system and document intended purposes and benefits.
+    keywords:
+      - context establishment
+      - intended purpose
+      - categorisation
+      - use case
+      - system scope
+    expected_evidence:
+      - Context, intended-purpose and categorisation documentation.
+  - id: NIST-MP-3
+    title: "MAP: Risk and benefit identification"
+    reference: MAP 3-5
+    category: Map
+    weight: 4
+    description: >-
+      Identify AI capabilities, risks, benefits and potential impacts on
+      individuals, groups, communities and society, including misuse.
+    keywords:
+      - risk identification
+      - impact on individuals
+      - potential harms
+      - misuse
+      - benefits and costs
+    expected_evidence:
+      - Identification of AI risks, impacts and potential harms.
+  - id: NIST-MS-1
+    title: "MEASURE: Metrics and evaluation"
+    reference: MEASURE 1-2
+    category: Measure
+    weight: 4
+    description: >-
+      Appropriate methods and metrics are identified and applied to measure AI
+      risks, trustworthiness characteristics and performance.
+    keywords:
+      - metrics
+      - evaluation
+      - testing
+      - benchmarks
+      - performance measurement
+      - trustworthiness characteristics
+    expected_evidence:
+      - Defined metrics and evaluation methods for AI trustworthiness.
+  - id: NIST-MS-2
+    title: "MEASURE: Trustworthiness - safety, security, bias, privacy"
+    reference: MEASURE 2
+    category: Measure
+    weight: 4
+    description: >-
+      AI systems are evaluated for trustworthy characteristics including
+      validity, reliability, safety, security/resilience, fairness/bias,
+      explainability and privacy.
+    keywords:
+      - safety
+      - security and resilience
+      - bias and fairness
+      - privacy
+      - explainability
+      - validity and reliability
+    expected_evidence:
+      - Evaluations covering safety, security, bias, privacy and explainability.
+  - id: NIST-MS-3
+    title: "MEASURE: Feedback and monitoring of measurements"
+    reference: MEASURE 3-4
+    category: Measure
+    weight: 3
+    description: >-
+      Mechanisms for tracking, monitoring and gathering feedback about measured
+      risks over time are in place.
+    keywords:
+      - monitoring
+      - feedback on measurements
+      - tracking risks
+      - continuous evaluation
+    expected_evidence:
+      - Ongoing monitoring and feedback on measured AI risks.
+  - id: NIST-MG-1
+    title: "MANAGE: Risk prioritisation and response"
+    reference: MANAGE 1-2
+    category: Manage
+    weight: 4
+    description: >-
+      AI risks are prioritised, responded to and managed; strategies to maximise
+      benefits and minimise negative impacts are planned and resourced.
+    keywords:
+      - risk prioritisation
+      - risk response
+      - risk treatment
+      - mitigation strategy
+      - resource allocation
+    expected_evidence:
+      - Prioritisation and treatment of AI risks with assigned resources.
+  - id: NIST-MG-3
+    title: "MANAGE: Third-party risk management"
+    reference: MANAGE 3
+    category: Manage
+    weight: 3
+    description: >-
+      AI risks and benefits from third-party resources are regularly monitored
+      and managed.
+    keywords:
+      - third-party management
+      - supply chain monitoring
+      - vendor risk treatment
+    expected_evidence:
+      - Ongoing management of third-party AI risks.
+  - id: NIST-MG-4
+    title: "MANAGE: Incident response and continuous monitoring"
+    reference: MANAGE 4
+    category: Manage
+    weight: 4
+    description: >-
+      Risk treatments, including response, recovery and communication plans,
+      are documented and monitored; incidents and errors are handled and
+      improvements applied.
+    keywords:
+      - incident response
+      - recovery plan
+      - continuous monitoring
+      - decommissioning
+      - error handling
+      - communication plan
+    expected_evidence:
+      - Incident response, recovery and continuous-monitoring procedures.

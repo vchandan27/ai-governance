@@ -1,0 +1,242 @@
+id: iso_42001
+name: ISO/IEC 42001:2023 Artificial Intelligence Management System
+short_name: ISO 42001
+version: "2023"
+authority: International Organization for Standardization / IEC
+reference_url: https://www.iso.org/standard/81230.html
+description: >-
+  ISO/IEC 42001 is the first international management-system standard for
+  artificial intelligence (AIMS). It follows the Annex SL high-level structure
+  (Clauses 4-10) and provides a set of Annex A reference controls. It is
+  certifiable and complements risk frameworks such as the NIST AI RMF.
+thresholds:
+  covered: 0.32
+  partial: 0.14
+controls:
+  - id: ISO-4
+    title: Context of the organization
+    reference: Clause 4
+    category: Context
+    weight: 3
+    description: >-
+      Determine internal and external issues, interested parties and their
+      requirements, and the scope of the AI management system.
+    keywords:
+      - context of the organization
+      - interested parties
+      - scope of the management system
+      - external and internal issues
+      - stakeholders
+    expected_evidence:
+      - A defined AIMS scope and list of interested parties/stakeholders.
+  - id: ISO-5
+    title: Leadership and AI policy
+    reference: Clause 5 / A.2
+    category: Leadership
+    weight: 5
+    description: >-
+      Top management shall demonstrate leadership and commitment, establish an
+      AI policy aligned with the organisation's objectives, and assign roles,
+      responsibilities and authorities.
+    keywords:
+      - ai policy
+      - leadership commitment
+      - top management
+      - roles and responsibilities
+      - accountability
+      - governance structure
+    expected_evidence:
+      - A formally approved AI policy endorsed by leadership.
+      - Defined roles, responsibilities and accountabilities for AI.
+  - id: ISO-6.1
+    title: Actions to address risks and opportunities
+    reference: Clause 6.1
+    category: Planning
+    weight: 5
+    description: >-
+      Plan actions to address AI risks and opportunities, define an AI risk
+      assessment process and an AI risk treatment process.
+    keywords:
+      - risk assessment process
+      - risk treatment
+      - risks and opportunities
+      - risk criteria
+      - statement of applicability
+    expected_evidence:
+      - A documented AI risk assessment and risk treatment process.
+  - id: ISO-6.1.4
+    title: AI system impact assessment
+    reference: Clause 6.1.4 / A.5
+    category: Impact Assessment
+    weight: 4
+    description: >-
+      Assess the potential consequences of AI systems for individuals, groups
+      and society, including impacts on health, safety, rights and fairness.
+    keywords:
+      - ai impact assessment
+      - impact on individuals
+      - societal impact
+      - fairness
+      - affected stakeholders
+    expected_evidence:
+      - An AI system impact assessment procedure and records.
+  - id: ISO-6.2
+    title: AI objectives and planning
+    reference: Clause 6.2
+    category: Planning
+    weight: 3
+    description: >-
+      Establish measurable AI objectives at relevant functions and levels and
+      plan how to achieve them.
+    keywords:
+      - ai objectives
+      - measurable objectives
+      - planning to achieve objectives
+      - targets
+    expected_evidence:
+      - Documented, measurable AI objectives with plans to achieve them.
+  - id: ISO-7.2
+    title: Competence and awareness
+    reference: Clause 7.2 / 7.3
+    category: Support
+    weight: 3
+    description: >-
+      Ensure persons doing work affecting AI performance are competent, and that
+      they are aware of the AI policy and their contribution to it.
+    keywords:
+      - competence
+      - training
+      - awareness
+      - skills
+      - capability building
+    expected_evidence:
+      - Training, competence and awareness requirements for AI staff.
+  - id: ISO-7.5
+    title: Documented information
+    reference: Clause 7.5
+    category: Support
+    weight: 2
+    description: >-
+      Create, control and retain documented information required by the AIMS and
+      necessary for its effectiveness.
+    keywords:
+      - documented information
+      - document control
+      - records management
+      - version control
+    expected_evidence:
+      - A document and records control procedure.
+  - id: ISO-8
+    title: Operational planning and control
+    reference: Clause 8 / A.6
+    category: Operation
+    weight: 4
+    description: >-
+      Plan, implement and control the processes needed to meet AI requirements
+      across the AI system life cycle (objectives, design, development,
+      verification, deployment, operation, retirement).
+    keywords:
+      - operational control
+      - ai system life cycle
+      - development process
+      - deployment
+      - verification and validation
+      - change management
+    expected_evidence:
+      - Defined AI system lifecycle processes and controls.
+  - id: ISO-A7
+    title: Data for AI systems
+    reference: Annex A.7
+    category: Data
+    weight: 4
+    description: >-
+      Define and document data management practices for AI, including data
+      quality, provenance, preparation and acquisition.
+    keywords:
+      - data management
+      - data quality
+      - data provenance
+      - data acquisition
+      - data preparation
+    expected_evidence:
+      - Data management controls covering quality and provenance.
+  - id: ISO-A8
+    title: Information for interested parties
+    reference: Annex A.8
+    category: Transparency
+    weight: 3
+    description: >-
+      Provide information to users and interested parties about AI systems,
+      including intended use, limitations and how to report concerns.
+    keywords:
+      - information to users
+      - transparency
+      - system documentation
+      - reporting concerns
+      - communication
+    expected_evidence:
+      - User-facing information and channels to report concerns.
+  - id: ISO-A9
+    title: Responsible use of AI systems
+    reference: Annex A.9
+    category: Operation
+    weight: 3
+    description: >-
+      Define objectives for responsible use and processes for the intended use,
+      monitoring and oversight of AI systems by the organisation.
+    keywords:
+      - responsible use
+      - acceptable use
+      - intended use
+      - monitoring of use
+      - human oversight
+    expected_evidence:
+      - A responsible/acceptable-use policy for AI systems.
+  - id: ISO-A10
+    title: Third-party and supplier relationships
+    reference: Annex A.10
+    category: Third Parties
+    weight: 3
+    description: >-
+      Ensure responsibilities are allocated and requirements are met when using
+      third-party AI components, suppliers or customers.
+    keywords:
+      - third party
+      - supplier
+      - vendor management
+      - procurement
+      - outsourcing
+      - supply chain
+    expected_evidence:
+      - Third-party/supplier requirements and due diligence for AI.
+  - id: ISO-9
+    title: Performance evaluation and internal audit
+    reference: Clause 9
+    category: Evaluation
+    weight: 4
+    description: >-
+      Monitor, measure, analyse and evaluate the AIMS, conduct internal audits
+      and management reviews at planned intervals.
+    keywords:
+      - performance evaluation
+      - monitoring and measurement
+      - internal audit
+      - management review
+      - metrics
+    expected_evidence:
+      - Monitoring metrics, internal audit and management review processes.
+  - id: ISO-10
+    title: Continual improvement and nonconformity
+    reference: Clause 10
+    category: Improvement
+    weight: 3
+    description: >-
+      Continually improve the AIMS and address nonconformities with corrective
+      action.
+    keywords:
+      - continual improvement
+      - corrective action
+      - nonconformity
+      - lessons learned
+    expected_evidence:
+      - A nonconformity and corrective-action process; improvement records.
