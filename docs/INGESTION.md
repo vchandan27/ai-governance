@@ -14,10 +14,29 @@ policy PDF ───────────────▶ analyze_cli ◀─�
                     coverage report (covered / partial / gap + evidence)
 ```
 
+### Source formats & a note on the EU AI Act
+
+The tool accepts `.pdf`, `.docx`, `.html`/`.htm`, `.txt` and `.md`.
+
+For the **EU AI Act, prefer the EUR-Lex HTML export** over the PDF. The HTML is
+parsed *structurally* (each `<p class="oj-ti-art">Article N</p>` + `oj-sti-art`
+title + `oj-normal` body), which yields **all 113 articles** with clean titles
+and zero false positives. The Official-Journal PDF, by contrast, is justified
+text that even PyMuPDF can only approximate (~109 articles, occasional inline
+cross-references). A pre-built full EU template ships in
+`app/data/frameworks/eu_ai_act_full.yaml`.
+
 ## Step 1 — build a template from the standard
 
 ```bash
-# EU AI Act
+# EU AI Act - from the EUR-Lex HTML export (recommended)
+python -m scripts.build_framework_template /path/to/OJ_L_202401689_EN_TXT.html \
+    --id eu_ai_act_full --name "EU AI Act (full)" --short "EU AI Act (full)" \
+    --version "Regulation (EU) 2024/1689" \
+    --url https://eur-lex.europa.eu/eli/reg/2024/1689/oj \
+    --prefix EUAIA   # HTML is auto-detected; no --profile needed
+
+# EU AI Act - from the PDF (fallback)
 python -m scripts.build_framework_template /path/to/eu_ai_act.pdf \
     --id eu_ai_act --name "EU AI Act" --short "EU AI Act" \
     --version "Regulation (EU) 2024/1689" \
@@ -76,6 +95,27 @@ python -m scripts.analyze_cli /path/to/company_policy.pdf --format json --out re
 
 You can also use the web UI / REST API exactly as before — generated frameworks
 appear automatically in `GET /api/frameworks` and in the framework picker.
+
+## Full text vs. applicable obligations (important)
+
+Mapping a policy against the **entire** legal text can produce a misleadingly low
+score. The full EU AI Act has 113 articles, but most concern regulatory machinery
+(notified bodies, conformity assessment, market surveillance, penalties,
+comitology, entry into force) that an *organisation's* policy will never — and
+need not — address. Example, scoring the bundled sample report:
+
+| Framework | Controls | Score |
+| --- | --- | --- |
+| EU AI Act (curated, applicable obligations) | 14 | ~70 |
+| EU AI Act (full, 113 articles) | 113 | ~27 |
+| ISO 42001 (curated) | 14 | ~74 |
+| ISO 42001 (full, clauses + Annex A) | 35 | ~51 |
+
+Both views are useful: the **full** template is the comprehensive reference; the
+**curated/scoped** template reflects the obligations that actually apply to your
+role (provider vs deployer) and risk tier, and is the better basis for a
+compliance percentage. A good next step is to tag, within the full template, the
+subset of controls applicable to your organisation and score against those.
 
 ## Tuning quality
 

@@ -3,11 +3,13 @@ from pathlib import Path
 from app.ingest import (
     detect_profile,
     generate_template_from_text,
+    parse_eu_html,
     parse_sections,
 )
 from app.frameworks import _parse_framework
 
 FIXTURE = Path(__file__).parent / "fixtures" / "mini_standard.txt"
+EU_HTML = Path(__file__).parent / "fixtures" / "mini_eurlex.html"
 NIST_TEXT = """
 GOVERN 1.1: Legal and regulatory requirements involving AI are understood,
 managed and documented across the organisation.
@@ -66,6 +68,26 @@ def test_eu_postprocess_drops_inline_references():
     art9 = [s for s in sections if s.reference == "Article 9"]
     assert len(art9) == 1
     assert art9[0].title == "Risk management system"
+
+
+def test_parse_eu_html_structured():
+    html = EU_HTML.read_text()
+    sections = parse_eu_html(html)
+    refs = {s.reference: s for s in sections}
+    assert "Article 9" in refs
+    assert "Article 10" in refs
+    # Stray backtick in the title must be stripped.
+    assert refs["Article 9"].title == "Risk management system"
+    # The annex content must not leak into Article 10's body.
+    assert "annex content must not" not in refs["Article 10"].body.lower()
+
+
+def test_eu_html_extraction():
+    from app.extraction import extract_text
+
+    text = extract_text("mini_eurlex.html", EU_HTML.read_bytes())
+    assert "risk management system" in text.lower()
+    assert "<p" not in text  # tags stripped
 
 
 def test_generate_template_is_loadable():

@@ -13,7 +13,7 @@ coverage is **partial**, and where you have **gaps**, with concrete recommendati
 
 ## What it does
 
-1. **Ingest** a policy document (`.pdf`, `.docx`, `.txt`, `.md`) or pasted text.
+1. **Ingest** a policy document (`.pdf`, `.docx`, `.html`, `.txt`, `.md`) or pasted text.
 2. **Segment** the document into analysable passages.
 3. **Map** each passage against a curated knowledge base of framework controls using
    a hybrid engine (semantic TF-IDF similarity + stemmed keyword coverage).
