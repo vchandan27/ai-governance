@@ -27,25 +27,48 @@ See [`docs/ARCHITECTURE.md`](docs/ARCHITECTURE.md) for a diagram and design note
 
 ---
 
-## Quick start
+## Test it on your own files (the website)
+
+The app **is** the website: a browser UI where you upload a policy and the backend
+runs the comparisons and renders the results. Run it locally and open it in your
+browser — two options:
+
+### Option A — Docker (no Python setup)
 
 ```bash
-# 1. Install dependencies (Python 3.10+)
-pip install -r requirements.txt
-
-# 2. Run the app
-./scripts/run.sh           # or: python -m uvicorn app.main:app --reload
-
-# 3. Open the UI
-open http://localhost:8000
+docker compose up --build      # or: docker build -t ai-gov . && docker run -p 8000:8000 ai-gov
 ```
 
-No API keys or external services are required — the default engine runs fully offline.
+### Option B — Python (3.10+)
 
-### Try it without a document
+```bash
+pip install -r requirements.txt
+./scripts/run.sh               # or: python -m uvicorn app.main:app --reload
+```
 
-Open the UI, go to the **Use sample** tab, and load the bundled
-`sample_policies/acme_responsible_ai_policy.md`.
+Then open **http://localhost:8000** and:
+
+1. Tick the frameworks to check against (EU AI Act, EU AI Act full/113 articles,
+   ISO 42001, NIST AI RMF).
+2. **Upload** your policy (`.pdf`, `.docx`, `.html`, `.txt`, `.md`) — or paste text,
+   or click **Use sample**.
+3. Hit **Analyze coverage** to see scores, per-control evidence, gaps,
+   recommendations, the cross-framework matrix, and downloadable reports.
+
+No API keys or external services are required — the engine runs fully offline, so
+your documents never leave the machine.
+
+> Prefer the terminal? `python -m scripts.analyze_cli your_policy.pdf --frameworks all --format markdown`
+
+### Using your licensed ISO 42001 (or other) template
+
+Generate it once from your PDF; it drops into the git-ignored `frameworks_local/`
+dir and is picked up automatically (Docker users: it's mounted via compose):
+
+```bash
+python -m scripts.build_framework_template "ISO_42001.pdf" \
+    --id iso_42001_full --name "ISO/IEC 42001 (full)" --profile iso --prefix ISO
+```
 
 ---
 

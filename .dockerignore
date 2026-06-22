@@ -1,0 +1,15 @@
+.git
+.gitignore
+.venv
+__pycache__
+**/__pycache__
+*.pyc
+.pytest_cache
+.scratch
+tests
+docs
+sample_policies
+*.pdf
+*.docx
+*.html
+app/data/frameworks_local

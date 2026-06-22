@@ -1,0 +1,10 @@
+services:
+  ai-governance:
+    build: .
+    ports:
+      - "8000:8000"
+    volumes:
+      # Optional: drop locally-generated / licensed framework templates here
+      # (e.g. ISO 42001) and they'll be picked up automatically.
+      - ./app/data/frameworks_local:/app/app/data/frameworks_local:ro
+    restart: unless-stopped
