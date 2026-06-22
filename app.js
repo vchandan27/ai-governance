@@ -374,8 +374,10 @@
   const SAMPLE_POLICY = [
     "Our organization maintains an AI system inventory covering intended purpose, business owner, data sources, deployment status, and risk classification.",
     "High-risk use cases require a documented risk assessment, impact assessment, data governance review, privacy review, fairness and bias testing, cybersecurity review, and human oversight before deployment.",
+    "Teams map context, stakeholders, benefits, harms, assumptions, and operating environment before approving material AI use cases.",
     "The AI governance committee approves exceptions, sets risk appetite, and reviews residual risk for material AI systems.",
     "Model teams must document training data, validation data, performance metrics, explainability limitations, monitoring requirements, and rollback procedures.",
+    "Risk owners manage mitigation plans, communication, risk acceptance, and monitoring throughout the AI lifecycle.",
     "Users receive clear notice when they interact with AI-generated content or automated recommendations, and impacted individuals may request manual review.",
     "Suppliers and vendors providing AI capabilities are subject to due diligence, contract controls, audit rights, and ongoing performance evaluation.",
     "Incidents, serious incidents, safety concerns, and policy nonconformities must be logged, escalated, remediated, and reviewed for continual improvement."
@@ -429,6 +431,20 @@
       .filter(Boolean);
   }
 
+  function escapeRegExp(value) {
+    return String(value).replace(/[.*+?^${}()|[\]\\]/g, "\\$&");
+  }
+
+  function containsKeyword(normalizedText, keyword) {
+    const normalizedKeyword = normalizeText(keyword);
+    if (!normalizedKeyword) {
+      return false;
+    }
+
+    const pattern = new RegExp(`(?:^|\\s)${escapeRegExp(normalizedKeyword)}(?=$|\\s)`);
+    return pattern.test(normalizedText);
+  }
+
   function findEvidence(text, keywords, maxSnippets) {
     const snippets = [];
     const evidenceUnits = splitIntoEvidenceUnits(text);
@@ -436,7 +452,7 @@
     for (const unit of evidenceUnits) {
       const normalizedUnit = normalizeText(unit);
       const matchedKeywords = keywords.filter((keyword) =>
-        normalizedUnit.includes(normalizeText(keyword))
+        containsKeyword(normalizedUnit, keyword)
       );
 
       if (matchedKeywords.length > 0) {
@@ -462,7 +478,7 @@
     const profileResults = activeProfiles.map((profile) => {
       const dimensions = profile.dimensions.map((dimension) => {
         const matchedKeywords = unique(
-          dimension.keywords.filter((keyword) => normalizedPolicy.includes(normalizeText(keyword)))
+          dimension.keywords.filter((keyword) => containsKeyword(normalizedPolicy, keyword))
         );
 
         return {
