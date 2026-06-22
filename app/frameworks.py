@@ -84,17 +84,30 @@ def _parse_framework(raw: dict) -> Framework:
     )
 
 
-@functools.lru_cache(maxsize=1)
-def load_frameworks() -> dict[str, Framework]:
-    """Load all framework YAML files into a dict keyed by framework id."""
-    frameworks: dict[str, Framework] = {}
-    for path in sorted(config.FRAMEWORKS_DIR.glob("*.yaml")):
+def _load_dir(directory, frameworks: dict[str, Framework]) -> None:
+    if not directory or not directory.exists():
+        return
+    for path in sorted(directory.glob("*.yaml")):
         with open(path, "r", encoding="utf-8") as fh:
             raw = yaml.safe_load(fh)
         if not raw:
             continue
         fw = _parse_framework(raw)
-        frameworks[fw.id] = fw
+        frameworks[fw.id] = fw  # local dir overrides curated by id
+
+
+@functools.lru_cache(maxsize=1)
+def load_frameworks() -> dict[str, Framework]:
+    """Load all framework YAML files into a dict keyed by framework id.
+
+    Curated frameworks ship in ``FRAMEWORKS_DIR``. Locally-generated templates in
+    ``LOCAL_FRAMEWORKS_DIR`` (git-ignored) are loaded afterwards and override
+    curated frameworks with the same id, so you can replace a hand-written
+    framework with one generated from the official PDF.
+    """
+    frameworks: dict[str, Framework] = {}
+    _load_dir(config.FRAMEWORKS_DIR, frameworks)
+    _load_dir(config.LOCAL_FRAMEWORKS_DIR, frameworks)
     return frameworks
 
 

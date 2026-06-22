@@ -12,6 +12,12 @@ from pathlib import Path
 BASE_DIR = Path(__file__).resolve().parent
 DATA_DIR = BASE_DIR / "data"
 FRAMEWORKS_DIR = DATA_DIR / "frameworks"
+# Optional second directory for locally-generated / private framework templates
+# (e.g. templates derived from copyrighted standards such as ISO 42001). This
+# directory is git-ignored by default so derived content is never committed.
+LOCAL_FRAMEWORKS_DIR = Path(
+    os.environ.get("AIGOV_EXTRA_FRAMEWORKS_DIR", str(DATA_DIR / "frameworks_local"))
+)
 CROSSWALK_FILE = DATA_DIR / "crosswalk.yaml"
 STATIC_DIR = BASE_DIR / "static"
 
