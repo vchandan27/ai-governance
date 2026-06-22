@@ -1,0 +1,103 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>AI Governance Tracker</title>
+  <link rel="stylesheet" href="/styles.css" />
+  <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>🛡️</text></svg>" />
+</head>
+<body>
+  <header class="topbar">
+    <div class="brand">
+      <span class="logo">🛡️</span>
+      <div>
+        <h1>AI Governance Tracker</h1>
+        <p class="tagline">Map your AI policy to EU AI Act, ISO/IEC 42001 &amp; NIST AI RMF</p>
+      </div>
+    </div>
+    <a class="ghost-btn" href="/docs" target="_blank" rel="noopener">API docs</a>
+  </header>
+
+  <main class="container">
+    <section class="card input-card">
+      <h2>1. Choose frameworks</h2>
+      <div id="framework-list" class="framework-list">
+        <p class="muted">Loading frameworks…</p>
+      </div>
+
+      <h2>2. Provide your policy</h2>
+      <div class="tabs">
+        <button class="tab active" data-tab="upload">Upload file</button>
+        <button class="tab" data-tab="paste">Paste text</button>
+        <button class="tab" data-tab="sample">Use sample</button>
+      </div>
+
+      <div class="tab-panel active" data-panel="upload">
+        <label class="dropzone" id="dropzone">
+          <input type="file" id="file-input" accept=".txt,.md,.pdf,.docx" hidden />
+          <span class="dz-icon">📄</span>
+          <span id="dz-text">Drag &amp; drop or click to select a policy (.pdf, .docx, .txt, .md)</span>
+        </label>
+      </div>
+
+      <div class="tab-panel" data-panel="paste">
+        <textarea id="text-input" rows="10" placeholder="Paste your AI / data / governance policy text here…"></textarea>
+      </div>
+
+      <div class="tab-panel" data-panel="sample">
+        <p class="muted">Run the analysis against a built-in sample policy to see how the tracker works.</p>
+        <button class="secondary-btn" id="load-sample">Load sample policy</button>
+      </div>
+
+      <div class="actions">
+        <button class="primary-btn" id="analyze-btn">Analyze coverage</button>
+        <button class="secondary-btn" id="download-md" disabled>Download report (.md)</button>
+        <button class="secondary-btn" id="download-json" disabled>Export JSON</button>
+      </div>
+      <p id="status-msg" class="status-msg"></p>
+    </section>
+
+    <section id="results" class="results hidden">
+      <div class="summary-grid">
+        <div class="card score-card">
+          <div class="gauge" id="overall-gauge">
+            <span id="overall-score">0</span><small>/100</small>
+          </div>
+          <p class="muted">Overall coverage</p>
+        </div>
+        <div class="card stat-card covered"><span id="stat-covered">0</span><label>Covered</label></div>
+        <div class="card stat-card partial"><span id="stat-partial">0</span><label>Partial</label></div>
+        <div class="card stat-card gap"><span id="stat-gap">0</span><label>Gaps</label></div>
+      </div>
+
+      <div class="card">
+        <h2>Priority gaps</h2>
+        <ul id="priority-gaps" class="priority-list"></ul>
+      </div>
+
+      <div id="framework-results"></div>
+
+      <div class="card">
+        <h2>Cross-framework view</h2>
+        <p class="muted">A unified, framework-agnostic look at whether each governance theme is addressed anywhere in your policy.</p>
+        <div class="table-wrap">
+          <table id="crosswalk-table" class="crosswalk"></table>
+        </div>
+      </div>
+
+      <p class="disclaimer">
+        ⚖️ This automated mapping is decision-support only. It is not legal advice
+        and does not constitute certification of compliance. Have qualified experts
+        review results before relying on them.
+      </p>
+    </section>
+  </main>
+
+  <footer class="footer">
+    AI Governance Tracker · draft · offline TF-IDF + keyword engine
+  </footer>
+
+  <script src="/app.js"></script>
+</body>
+</html>
