@@ -198,6 +198,49 @@ def _postprocess_eu(sections: list[Section]) -> list[Section]:
     return sorted(best.values(), key=lambda s: int(re.sub(r"\D", "", s.reference) or 0))
 
 
+def parse_eu_html(html: str, min_body: int = 30) -> list[Section]:
+    """Structured parse of a EUR-Lex CONVEX HTML export of the EU AI Act.
+
+    Far more reliable than text heuristics: each article is marked up as
+    ``<p class="oj-ti-art">Article N</p>`` followed by ``oj-sti-art`` (title)
+    and ``oj-normal`` body paragraphs. Returns one Section per article.
+    """
+    from bs4 import BeautifulSoup
+
+    soup = BeautifulSoup(html, "html.parser")
+    titles = soup.find_all("p", class_="oj-ti-art")
+    sections: list[Section] = []
+    for ti in titles:
+        reference = re.sub(r"\s+", " ", ti.get_text(" ", strip=True)).strip()
+        if not re.match(r"^Article\s+\d+", reference):
+            continue
+        title = ""
+        body_parts: list[str] = []
+        # Walk forward through the document until the next article title.
+        for el in ti.find_all_next():
+            if el is ti:
+                continue
+            classes = el.get("class") or []
+            # Stop at the next article or at the start of the annexes.
+            if "oj-ti-art" in classes or "oj-doc-ti" in classes:
+                break
+            if el.name != "p":
+                continue
+            text = re.sub(r"\s+", " ", el.get_text(" ", strip=True)).strip()
+            if not text:
+                continue
+            if "oj-sti-art" in classes and not title:
+                title = text.strip("`").strip()
+            elif "oj-normal" in classes or not classes:
+                body_parts.append(text)
+        body = " ".join(body_parts)
+        if len(body) >= min_body:
+            sections.append(
+                Section(reference=reference, title=title or reference, body=body, category="Article")
+            )
+    return sections
+
+
 def derive_keywords(sections: list[Section], top_k: int = 8) -> None:
     """Populate each section's keywords using TF-IDF over the section corpus."""
     if not sections:
@@ -290,6 +333,59 @@ def build_framework(
         "thresholds": {"covered": 0.32, "partial": 0.14},
         "controls": controls,
     }
+
+
+def sections_from_document(
+    filename: str, data: bytes, profile: str = "auto"
+) -> tuple[list[Section], str]:
+    """Extract controls from a raw document, choosing the best strategy.
+
+    EUR-Lex HTML exports are parsed structurally; everything else goes through
+    text extraction + the heading-based profile parser.
+    """
+    from pathlib import Path
+
+    from .extraction import extract_text
+
+    suffix = Path(filename).suffix.lower()
+    if suffix in (".html", ".htm"):
+        raw = data.decode("utf-8", errors="replace")
+        if "oj-ti-art" in raw:
+            sections = parse_eu_html(raw)
+            if sections:
+                return sections, "eu_ai_act_html"
+    text = extract_text(filename, data)
+    used = detect_profile(filename, text) if profile in ("", "auto") else profile
+    return parse_sections(text, used), used
+
+
+def generate_template_from_document(
+    data: bytes,
+    *,
+    filename: str,
+    framework_id: str,
+    name: str,
+    short_name: str = "",
+    version: str = "",
+    reference_url: str = "",
+    profile: str = "auto",
+    control_prefix: str = "",
+    authority: str = "",
+) -> tuple[dict, str, int]:
+    """High-level helper: raw bytes -> (framework_dict, strategy_used, n_controls)."""
+    sections, used = sections_from_document(filename, data, profile)
+    derive_keywords(sections)
+    framework = build_framework(
+        framework_id=framework_id,
+        name=name,
+        short_name=short_name or name,
+        version=version,
+        reference_url=reference_url,
+        sections=sections,
+        control_prefix=control_prefix,
+        authority=authority,
+    )
+    return framework, used, len(sections)
 
 
 def generate_template_from_text(

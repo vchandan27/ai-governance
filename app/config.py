@@ -31,4 +31,4 @@ MAX_EVIDENCE_PER_CONTROL = int(os.environ.get("AIGOV_MAX_EVIDENCE", 3))
 MIN_EVIDENCE_SIMILARITY = float(os.environ.get("AIGOV_MIN_EVIDENCE_SIM", 0.08))
 
 # Allowed upload file extensions.
-ALLOWED_EXTENSIONS = {".txt", ".md", ".pdf", ".docx"}
+ALLOWED_EXTENSIONS = {".txt", ".md", ".pdf", ".docx", ".html", ".htm"}

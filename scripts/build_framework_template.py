@@ -25,8 +25,8 @@ sys.path.insert(0, str(Path(__file__).resolve().parent.parent))
 import yaml  # noqa: E402
 
 from app import config  # noqa: E402
-from app.extraction import ExtractionError, extract_text  # noqa: E402
-from app.ingest import generate_template_from_text  # noqa: E402
+from app.extraction import ExtractionError  # noqa: E402
+from app.ingest import generate_template_from_document  # noqa: E402
 
 
 def main() -> int:
@@ -59,23 +59,21 @@ def main() -> int:
         return 2
 
     try:
-        text = extract_text(src.name, src.read_bytes())
+        framework, profile_used, n = generate_template_from_document(
+            src.read_bytes(),
+            filename=src.name,
+            framework_id=args.id,
+            name=args.name,
+            short_name=args.short,
+            version=args.version,
+            reference_url=args.url,
+            profile=args.profile,
+            control_prefix=args.prefix,
+            authority=args.authority,
+        )
     except ExtractionError as exc:
         print(f"error: could not read document: {exc}", file=sys.stderr)
         return 2
-
-    framework, profile_used, n = generate_template_from_text(
-        text,
-        framework_id=args.id,
-        name=args.name,
-        short_name=args.short,
-        version=args.version,
-        reference_url=args.url,
-        profile=args.profile,
-        control_prefix=args.prefix,
-        filename=src.name,
-    )
-    framework["authority"] = args.authority
 
     yaml_text = yaml.safe_dump(framework, sort_keys=False, allow_unicode=True, width=100)
 

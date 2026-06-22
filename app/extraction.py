@@ -90,6 +90,19 @@ def _extract_docx(data: bytes) -> str:
     return "\n".join(parts)
 
 
+def _extract_html(data: bytes) -> str:
+    raw = _extract_txt(data)
+    try:
+        from bs4 import BeautifulSoup
+    except ImportError:
+        # Fallback: crude tag stripping if BeautifulSoup is unavailable.
+        return re.sub(r"<[^>]+>", " ", raw)
+    soup = BeautifulSoup(raw, "html.parser")
+    for tag in soup(["script", "style", "noscript"]):
+        tag.decompose()
+    return soup.get_text("\n")
+
+
 def extract_text(filename: str, data: bytes) -> str:
     """Dispatch extraction based on the file extension."""
     suffix = Path(filename).suffix.lower()
@@ -99,6 +112,8 @@ def extract_text(filename: str, data: bytes) -> str:
         text = _extract_pdf(data)
     elif suffix == ".docx":
         text = _extract_docx(data)
+    elif suffix in (".html", ".htm"):
+        text = _extract_html(data)
     else:
         raise ExtractionError(f"Unsupported file type: '{suffix or filename}'.")
 
